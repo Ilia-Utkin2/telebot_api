@@ -1,13 +1,3 @@
-Вот улучшенный и структурированный `README.md` для вашего проекта с Telegram ботом и API, оформленный по аналогии с приведённым примером:
-
-```markdown
-# Telegram Bot API with Django REST Framework
-
-![Django](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white)
-![DRF](https://img.shields.io/badge/DRF-red?style=for-the-badge&logo=django&logoColor=white)
-![Telegram](https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)
-![SQLite](https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white)
-
 ## Описание проекта
 
 Проект представляет собой API для управления пользователями и постами с интеграцией Telegram бота. Пользователи могут:
