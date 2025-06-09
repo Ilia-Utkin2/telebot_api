@@ -1,6 +1,7 @@
-from rest_framework import serializers
 from post.models import Post
+from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
+
 
 class PostSerializer(serializers.ModelSerializer):
     author_username = serializers.CharField(source='author.username', read_only=True)

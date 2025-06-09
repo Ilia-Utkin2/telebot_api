@@ -1,10 +1,11 @@
-from rest_framework import viewsets, permissions
 from django.contrib.auth import get_user_model
-from .users_serializers import UserSerializer, UserCreateSerializer
-from rest_framework.permissions import IsAuthenticated
 from django.core.exceptions import PermissionDenied
+from rest_framework import permissions, status, viewsets
 from rest_framework.decorators import action
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+
+from .users_serializers import UserCreateSerializer, UserSerializer
 
 User = get_user_model()
 
