@@ -1,9 +1,8 @@
-Django==4.2.11  # LTS версия
-djangorestframework==3.15.2  # Актуальная версия DRF
-drf-yasg==1.21.7  # Для Swagger/ReDoc документации
-aiogram==3.4.1  # Для Telegram-бота (асинхронный)
-python-dotenv==1.0.1  # Для переменных окружения
-pytest==8.0.0  # Для тестов (опционально)
-pytest-django==4.8.0  # Для тестов Django (опционально)
-pytest-pythonpath==0.7.3  # Для тестов (опционально)
-djoser==2.2.3
+Django==4.2.11
+djangorestframework==3.15.2
+drf-yasg==1.21.7
+python-telegram-bot==20.7
+python-dotenv==1.0.1
+psycopg2-binary==2.9.9 
+joser==2.2.3
+djangorestframework-simplejwt==5.3.1
