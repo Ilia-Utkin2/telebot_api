@@ -1,15 +1,44 @@
-from rest_framework import viewsets
-from django.contrib.auth.models import User
-from .serializers import UserSerializer
+from rest_framework import viewsets, permissions
+from django.contrib.auth import get_user_model
+from .users_serializers import UserSerializer, UserCreateSerializer
 from rest_framework.permissions import IsAuthenticated
 from django.core.exceptions import PermissionDenied
+from rest_framework.decorators import action
+from rest_framework.response import Response
+
+User = get_user_model()
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [IsAuthenticated]
 
-    def get_queryset(self):
-        if not self.request.user.is_authenticated:
-            raise PermissionDenied("Требуется авторизация для просмотра профиля.")
-        return User.objects.filter(id=self.request.user.id)
+    def get_serializer_class(self):
+        if self.action in ['create', 'partial_update', 'update']:
+            return UserCreateSerializer
+        return UserSerializer
+
+    @action(
+        detail=False,
+        methods=['get', 'patch'],
+        url_path='me',
+        permission_classes=[permissions.IsAuthenticated]
+    )
+    def me(self, request):
+        user = request.user
+        if request.method == 'GET':
+            serializer = self.get_serializer(user)
+            return Response(serializer.data)
+
+        elif request.method == 'PATCH':
+            serializer = self.get_serializer(
+                user, data=request.data, partial=True)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(
+                    serializer.data,
+                    status=status.HTTP_200_OK
+                )
+            return Response(
+                serializer.errors,
+                status=status.HTTP_400_BAD_REQUEST
+            )

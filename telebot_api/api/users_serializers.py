@@ -6,7 +6,8 @@ User = get_user_model()
 
 
 class UserCreateSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True)
+    password = serializers.CharField(
+        write_only=True, style={'input_type': 'password'})
 
     class Meta:
         model = User
@@ -42,3 +43,19 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'username', 'email']
+        extra_kwargs = {
+            'username': {'error_messages': {'required': 'Поле имени пользователя обязательно.'}},
+            'email': {'error_messages': {'required': 'Поле email обязательно.'}},
+        }
+
+    def validate_email(self, value):
+        if User.objects.filter(email=value).exclude(id=self.instance.id if self.instance else None).exists():
+            raise ValidationError(
+                f"Пользователь с email '{value}' уже существует.")
+        return value
+
+    def validate_username(self, value):
+        if User.objects.filter(username=value).exclude(id=self.instance.id if self.instance else None).exists():
+            raise ValidationError(
+                f"Пользователь с именем '{value}' уже существует.")
+        return value

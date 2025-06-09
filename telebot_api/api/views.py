@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 
 from post.models import Post
+from rest_framework import viewsets
 
 from .permissions import UpdateOnlyAdminOrAuthor
 from .serializers import PostSerializer
