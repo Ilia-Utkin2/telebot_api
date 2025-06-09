@@ -3,27 +3,20 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-# Загрузка переменных окружения из .env
 load_dotenv()
 
-# Базовая директория проекта
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Секретный ключ (должен быть задан в .env)
 SECRET_KEY = os.getenv('SECRET_KEY')
 if not SECRET_KEY:
     raise ValueError("SECRET_KEY must be set in .env file")
 
-# Режим отладки
 DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 
-# Кастомная модель пользователя
 AUTH_USER_MODEL = 'user.User'
 
-# Разрешенные хосты
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '127.0.0.1,localhost').split(',')
 
-# Установленные приложения
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',

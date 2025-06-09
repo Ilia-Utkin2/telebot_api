@@ -4,7 +4,8 @@ from rest_framework.exceptions import ValidationError
 
 
 class PostSerializer(serializers.ModelSerializer):
-    author_username = serializers.CharField(source='author.username', read_only=True)
+    author_username = serializers.CharField(
+        source='author.username', read_only=True)
 
     class Meta:
         model = Post
